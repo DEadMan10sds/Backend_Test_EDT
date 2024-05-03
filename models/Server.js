@@ -13,6 +13,11 @@ const restaurantRoutes = [
   },
   {
     type: "get",
+    route: "/single/:id",
+    function: RestaurantController.getSingle,
+  },
+  {
+    type: "get",
     route: "/loadCSV",
     middlewares: [],
     function: RestaurantController.loadFromCSVtoDB,
@@ -59,7 +64,7 @@ class Server {
   }
 
   async syncModels() {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
   }
 
   middlewares() {
