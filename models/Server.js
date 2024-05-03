@@ -1,15 +1,51 @@
 import express, { json } from "express";
 import cors from "cors";
 import { sequelize, testConnectionToDb } from "../database/Connection.js";
+import RestaurantController from "../controllers/Restaurant.js";
+import generateRouter from "../helpers/generateRouter.js";
+
+const restaurantRoutes = [
+  {
+    type: "get",
+    route: "/",
+    middlewares: [],
+    function: () => {},
+  },
+];
+
+const generalRoutes = [
+  {
+    type: "get",
+    route: "/health",
+    middlewares: [],
+    function: (req, res) => {
+      return res.status(200).json({
+        message: "Server running correctly",
+      });
+    },
+  },
+];
 
 class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT;
 
+    this.APIRoutes = {
+      general: {
+        path: "",
+        router: generateRouter(generalRoutes),
+      },
+      restaurant: {
+        path: "/api/restaurant",
+        router: generateRouter(restaurantRoutes),
+      },
+    };
+
     this.database();
     this.syncModels();
     this.middlewares();
+    this.routes();
   }
 
   async database() {
@@ -23,6 +59,16 @@ class Server {
   middlewares() {
     this.app.use(cors());
     this.app.use(json());
+  }
+
+  routes() {
+    //Automatic generation of routes
+    Object.keys(this.APIRoutes).forEach((newRoute) => {
+      this.app.use(
+        this.APIRoutes[newRoute].path,
+        this.APIRoutes[newRoute].router
+      );
+    });
   }
 
   listen() {
