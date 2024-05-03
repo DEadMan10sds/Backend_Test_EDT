@@ -2,6 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import { sequelize, testConnectionToDb } from "../database/Connection.js";
 import RestaurantController from "../controllers/Restaurant.js";
+import generalController from "../controllers/general.js";
 import generateRouter from "../helpers/generateRouter.js";
 
 const restaurantRoutes = [
@@ -47,11 +48,13 @@ const generalRoutes = [
     type: "get",
     route: "/health",
     middlewares: [],
-    function: (req, res) => {
-      return res.status(200).json({
-        message: "Server running correctly",
-      });
-    },
+    function: generalController.health,
+  },
+  {
+    type: "put",
+    route: "/reset",
+    middlewares: [],
+    function: generalController.resetDatabase,
   },
 ];
 
