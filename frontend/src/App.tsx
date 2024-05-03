@@ -4,6 +4,7 @@ import { Home } from "./pages/Home/Home";
 import { InformationDisplay } from "./components/informationDisplay/informationDisplay.tsx";
 import { content } from "./data/data.ts";
 import { JwtComponent } from "./pages/jwt/Jwt.tsx";
+import { Information } from "./interfaces/InformationDisplay.ts";
 
 /**
  import ReactPlayer from "react-player";
@@ -26,7 +27,7 @@ import { JwtComponent } from "./pages/jwt/Jwt.tsx";
  */
 
 const routes = content.map((value) => {
-  const currentData = value.data;
+  const currentData: Information[] = value.data as Information[];
   if (value.text === "Home")
     return {
       index: true,
