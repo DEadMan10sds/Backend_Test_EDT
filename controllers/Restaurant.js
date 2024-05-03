@@ -110,8 +110,15 @@ const RestaurantController = {
         where: { id },
       });
 
-      console.log(restaurantDeleted);
-      return res.status(200);
+      if (!restaurantDeleted)
+        return res.status(200).json({
+          message: "Nothing to delete",
+        });
+
+      return res.status(200).json({
+        message: "Restaurant deleted correctly",
+        data: restaurantDeleted,
+      });
     } catch (error) {
       errorResponse(res, error);
     }

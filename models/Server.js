@@ -27,7 +27,7 @@ const restaurantRoutes = [
   },
   {
     type: "delete",
-    route: "/delete",
+    route: "/delete/:id",
     function: RestaurantController.deleteRestaurant,
   },
   {
