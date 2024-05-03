@@ -7,8 +7,6 @@ const RestaurantController = {
     try {
       const allRestaurants = await Restaurant.findAll();
 
-      console.log(allRestaurants);
-
       if (!allRestaurants || !allRestaurants.length)
         return res.status(404).json({
           message: "There are no restaurants.",
