@@ -1,9 +1,6 @@
 import Restaurant from "../models/Restaurant.js";
-import fs from "fs";
-import csv from "csv-parser";
 import errorResponse from "../helpers/errorResponse.js";
-
-const results = [];
+import loadCSV from "../helpers/loadCSVonMemory.js";
 
 const RestaurantController = {
   getAll: async function (req, res) {
@@ -125,22 +122,15 @@ const RestaurantController = {
   },
 
   loadFromCSVtoDB: async function (req, res) {
-    fs.createReadStream("./documents/restaurantes.csv")
-      .pipe(csv())
-      .on("data", (data) => {
-        results.push(data);
-      })
-      .on("end", async () => {
-        try {
-          await Restaurant.bulkCreate(results);
+    try {
+      loadCSV(Restaurant);
 
-          return res.status(200).json({
-            message: "CSV loaded on database",
-          });
-        } catch (error) {
-          errorResponse(res, error);
-        }
+      return res.status(200).json({
+        message: "CSV loaded on database",
       });
+    } catch (error) {
+      errorResponse(res, error);
+    }
   },
 
   dropTable: async function (req, res) {
