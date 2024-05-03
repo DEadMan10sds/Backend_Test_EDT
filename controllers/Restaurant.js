@@ -78,18 +78,20 @@ const RestaurantController = {
         message: "The id of the restaurant to update is required",
       });
 
-    if (!restaurantNewData)
-      return res.status(400).json({
-        message: "The data of the restaurant to update is required",
-      });
-
     try {
       const restaurantUpdated = await Restaurant.update(restaurantNewData, {
         where: { id },
       });
 
-      console.log(restaurantUpdated);
-      return res.status(200);
+      if (!restaurantUpdated[0])
+        return res.status(200).json({
+          message: "Nothing to update",
+        });
+
+      return res.status(200).json({
+        message: "Restaurant updated correctly",
+        data: restaurantUpdated,
+      });
     } catch (error) {
       errorResponse(res, error);
     }
