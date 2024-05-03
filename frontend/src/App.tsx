@@ -25,16 +25,17 @@ import { JwtComponent } from "./pages/jwt/Jwt.tsx";
           },
  */
 
-const routes = Object.keys(content).map((value) => {
-  if (value === "home")
+const routes = content.map((value) => {
+  const currentData = value.data;
+  if (value.text === "Home")
     return {
       index: true,
-      element: <InformationDisplay data={content[value]} />,
+      element: <InformationDisplay data={currentData} />,
     };
 
   return {
-    path: value,
-    element: <InformationDisplay data={content[value]} />,
+    path: value.to,
+    element: <InformationDisplay data={currentData} />,
   };
 });
 

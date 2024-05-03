@@ -1,13 +1,13 @@
 import { WithSidebar } from "@/components/sideBar/SideBar";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { sidebarLinks } from "@/data/data";
+import { content } from "@/data/data";
 
 export function Home() {
   const CustomHeader = () => {
     return (
       <div className="flex px-4">
-        <span className="text-2xl font-extrabold">Índice</span>
+        <span className="text-2xl font-extrabold">Index</span>
       </div>
     );
   };
@@ -17,7 +17,7 @@ export function Home() {
       <div>
         <CustomHeader />
         <div className="mt-6">
-          {sidebarLinks.map((item, index) => (
+          {content.map((item, index) => (
             <NavLink
               key={index}
               to={item.to}
