@@ -25,7 +25,25 @@ const RestaurantController = {
       return res.status(400).json({ error: error.error });
     }
   },
-  createRestaurant: async function (req, res) {},
+  createRestaurant: async function (req, res) {
+    const restaurantData = req.body;
+
+    if (!restaurantData)
+      return res.status(404).json({
+        message: "The restaurant data is required",
+      });
+
+    try {
+      const restaurantSaved = await Restaurant.create(restaurantData);
+      console.log(restaurantSaved);
+      return res.status(200).json({
+        message: "Restaurant created succesfully",
+      });
+    } catch (error) {
+      console.log(error, new Date());
+      return res.status(400).json({ error: error.error });
+    }
+  },
   updateRestaurant: async function (req, res) {},
   deleteRestaurant: async function (req, res) {},
   loadFromCSVtoDB: async function (req, res) {
