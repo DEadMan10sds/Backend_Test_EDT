@@ -4,6 +4,10 @@ import { sequelize, testConnectionToDb } from "../database/Connection.js";
 import RestaurantController from "../controllers/Restaurant.js";
 import generalController from "../controllers/general.js";
 import generateRouter from "../helpers/generateRouter.js";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const restaurantRoutes = [
   {
@@ -101,6 +105,7 @@ class Server {
   middlewares() {
     this.app.use(cors());
     this.app.use(json());
+    this.app.use("/", express.static(path.resolve(__dirname, "../public")));
   }
 
   routes() {

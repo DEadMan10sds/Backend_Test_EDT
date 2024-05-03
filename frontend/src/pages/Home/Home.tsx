@@ -2,6 +2,7 @@ import { WithSidebar } from "@/components/sideBar/SideBar";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { content } from "@/data/data";
+import { Button } from "@/components/ui/button";
 
 export function Home() {
   const CustomHeader = () => {
@@ -26,6 +27,14 @@ export function Home() {
               {item.text}
             </NavLink>
           ))}
+          <a
+            href="/EDT-Test-Backend.postman_collection.json"
+            download="PostmanCollection"
+          >
+            <Button className="block rounded px-4 py-2.5 transition duration-200 hover:bg-cyan-900">
+              Postman Collection
+            </Button>
+          </a>
         </div>
       </div>
     );

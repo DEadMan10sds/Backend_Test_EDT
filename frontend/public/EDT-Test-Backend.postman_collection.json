@@ -150,6 +150,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant}}/statistics?latitude=19.4417&longitude=-99.1266&radius=50",
+							"host": [
+								"{{restaurant}}"
+							],
+							"path": [
+								"statistics"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "19.4417"
+								},
+								{
+									"key": "longitude",
+									"value": "-99.1266"
+								},
+								{
+									"key": "radius",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

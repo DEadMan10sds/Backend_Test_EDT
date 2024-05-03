@@ -286,8 +286,4 @@ export const content = [
     text: "Repository",
     to: "https://github.com/DEadMan10sds/Backend_Test_EDT",
   },
-  {
-    text: "Postman Collection",
-    to: "https://backend-test-edt.onrender.com/EDT-Test-Backend.postman_collection.json",
-  },
 ];
