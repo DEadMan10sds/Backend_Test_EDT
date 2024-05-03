@@ -1,9 +1,6 @@
 import express, { json } from "express";
 import cors from "cors";
 import { sequelize, testConnectionToDb } from "../database/Connection.js";
-import User from "./User.js";
-
-const modelsArray = [];
 
 class Server {
   constructor() {
@@ -30,9 +27,9 @@ class Server {
 
   listen() {
     this.app.listen(this.port, (err) => {
-      console.log("---------------------------");
+      console.log(" --------------------------");
       console.log(`|  Server running on: ${this.port} |`);
-      console.log("---------------------------");
+      console.log(" --------------------------");
     });
   }
 }
