@@ -5,30 +5,6 @@ export const sidebarLinks = [
     text: "Resumen",
     to: "/",
   },
-  {
-    text: "Uso de la API",
-    to: "/usage",
-  },
-  {
-    text: "Arquitectura",
-    to: "/architecture",
-  },
-  {
-    text: "Operaciones CRUD",
-    to: "/crudOperations",
-  },
-  {
-    text: "Autenticación",
-    to: "/authentication",
-  },
-  {
-    text: "Despliegue",
-    to: "/deploy",
-  },
-  {
-    text: "Video",
-    to: "/video",
-  },
   // {
   //   text: "Frontend",
   //   to: "/front",

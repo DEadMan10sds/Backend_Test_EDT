@@ -21,7 +21,7 @@ const generalController = {
     });
   },
   redirect: function (req, res) {
-    return res.status(404).redirect("/");
+    return res.status(404).redirect("/health");
   },
 };
 
