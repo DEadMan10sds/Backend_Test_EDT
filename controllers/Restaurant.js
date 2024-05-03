@@ -146,35 +146,9 @@ const RestaurantController = {
 
   statistics: async function (req, res) {
     const { latitude: lat, longitude: lng, radius: rad } = req.query;
-    console.log({ lat, lng, rad });
     let findedRestaurants;
 
     const radiousInMiles = rad / 1609.344;
-
-    /*const haversine = `(
-      3959 * acos(
-          cos(radians(${lat}))
-          * cos(radians(lat))
-          * cos(radians(lng) - radians(${lng}))
-          + sin(radians(${lat})) * sin(radians(lat))
-      )
-  )`;
-  findedRestaurants = await Restaurant.findAll({
-    attributes: ["*", [sequelize.literal(haversine), "distance"]],
-  });*/
-
-    // const newfindedRestaurants = await sequelize.query(`SELECT *, (
-    //   3959 * acos(cos(radians(" +
-    //           lat +
-    //           ")) * cos(radians(lat)) * cos(radians(" +
-    //           lng +
-    //           ") - radians(lng)) + sin(radians(" +
-    //           lat +
-    //           ")) * sin(radians(lat)))
-    // ) AS distance
-    // FROM restaurants
-    // HAVING distance < ${radiousInMiles}
-    // ORDER BY distance;`);
 
     findedRestaurants = await Restaurant.findAll({
       attributes: {
@@ -214,12 +188,11 @@ const RestaurantController = {
 
     const finalStd = mediumDistanceSquare / findedRestaurants.length;
 
-    console.log(finalStd);
-
     return res.status(200).json({
       message: "Statistics solicitated",
       data: findedRestaurants,
-      length: findedRestaurants.length,
+      averageRating: avgRating,
+      standardDeviation: finalStd,
     });
   },
 };
