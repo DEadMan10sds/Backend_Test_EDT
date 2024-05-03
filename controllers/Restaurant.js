@@ -1,4 +1,8 @@
 import Restaurant from "../models/Restaurant.js";
+import fs from "fs";
+import csv from "csv-parser";
+
+const results = [];
 
 const RestaurantController = {
   getAll: async function (req, res) {
@@ -24,7 +28,17 @@ const RestaurantController = {
   createRestaurant: async function (req, res) {},
   updateRestaurant: async function (req, res) {},
   deleteRestaurant: async function (req, res) {},
-  loadFromCSV: async function (req, res) {},
+  loadFromCSVtoDB: async function (req, res) {
+    fs.createReadStream("./documents/restaurantes.csv")
+      .pipe(csv())
+      .on("data", async (data) => {
+        const newRestaurantInstance = await Restaurant.create(data);
+        results.push(newRestaurantInstance);
+      })
+      .on("end", () => {
+        return res.status(200).json({ results });
+      });
+  },
 };
 
 export default RestaurantController;

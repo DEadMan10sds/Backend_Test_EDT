@@ -11,6 +11,12 @@ const restaurantRoutes = [
     middlewares: [],
     function: RestaurantController.getAll,
   },
+  {
+    type: "get",
+    route: "/loadCSV",
+    middlewares: [],
+    function: RestaurantController.loadFromCSVtoDB,
+  },
 ];
 
 const generalRoutes = [
