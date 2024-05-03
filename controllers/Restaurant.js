@@ -144,10 +144,14 @@ const RestaurantController = {
   },
 
   dropTable: async function (req, res) {
-    await Restaurant.drop();
-    return res.status(200).json({
-      message: "Restauran table dropped",
-    });
+    try {
+      await Restaurant.drop();
+      return res.status(200).json({
+        message: "Restauran table dropped",
+      });
+    } catch (error) {
+      errorResponse(res, error);
+    }
   },
 };
 
