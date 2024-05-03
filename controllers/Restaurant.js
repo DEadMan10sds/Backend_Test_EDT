@@ -147,7 +147,7 @@ const RestaurantController = {
     try {
       await Restaurant.drop();
       return res.status(200).json({
-        message: "Restauran table dropped",
+        message: "Restaurant table dropped",
       });
     } catch (error) {
       errorResponse(res, error);
