@@ -41,6 +41,11 @@ const restaurantRoutes = [
     route: "/dropTable",
     function: RestaurantController.dropTable,
   },
+  {
+    type: "get",
+    route: "/statistics",
+    function: RestaurantController.statistics,
+  },
 ];
 
 const generalRoutes = [

@@ -1,6 +1,8 @@
 import Restaurant from "../models/Restaurant.js";
 import errorResponse from "../helpers/errorResponse.js";
 import loadCSV from "../helpers/loadCSVonMemory.js";
+import { sequelize } from "../database/Connection.js";
+import { Op } from "sequelize";
 
 const RestaurantController = {
   getAll: async function (req, res) {
@@ -140,6 +142,85 @@ const RestaurantController = {
     } catch (error) {
       errorResponse(res, error);
     }
+  },
+
+  statistics: async function (req, res) {
+    const { latitude: lat, longitude: lng, radius: rad } = req.query;
+    console.log({ lat, lng, rad });
+    let findedRestaurants;
+
+    const radiousInMiles = rad / 1609.344;
+
+    /*const haversine = `(
+      3959 * acos(
+          cos(radians(${lat}))
+          * cos(radians(lat))
+          * cos(radians(lng) - radians(${lng}))
+          + sin(radians(${lat})) * sin(radians(lat))
+      )
+  )`;
+  findedRestaurants = await Restaurant.findAll({
+    attributes: ["*", [sequelize.literal(haversine), "distance"]],
+  });*/
+
+    // const newfindedRestaurants = await sequelize.query(`SELECT *, (
+    //   3959 * acos(cos(radians(" +
+    //           lat +
+    //           ")) * cos(radians(lat)) * cos(radians(" +
+    //           lng +
+    //           ") - radians(lng)) + sin(radians(" +
+    //           lat +
+    //           ")) * sin(radians(lat)))
+    // ) AS distance
+    // FROM restaurants
+    // HAVING distance < ${radiousInMiles}
+    // ORDER BY distance;`);
+
+    findedRestaurants = await Restaurant.findAll({
+      attributes: {
+        include: [
+          [
+            sequelize.literal(
+              "3959 * acos(cos(radians(" +
+                lat +
+                ")) * cos(radians(lat)) * cos(radians(" +
+                lng +
+                ") - radians(lng)) + sin(radians(" +
+                lat +
+                ")) * sin(radians(lat)))"
+            ),
+            "distance",
+          ],
+        ],
+      },
+      having: {
+        ["distance"]: { [Op.lte]: radiousInMiles },
+      },
+    });
+
+    const avgRating =
+      findedRestaurants.reduce((acumulator, currentValue) => {
+        return acumulator + currentValue.rating;
+      }, 0) / findedRestaurants.length;
+
+    const mediumDistanceSquare = findedRestaurants.reduce(
+      (acumulator, currentValue) => {
+        return (
+          acumulator + Math.pow(Math.abs(currentValue.rating - avgRating), 2)
+        );
+      },
+      0
+    );
+
+    const finalStd = mediumDistanceSquare / findedRestaurants.length;
+
+    console.log(finalStd);
+
+    return res.status(200).json({
+      message: "Statistics solicitated",
+      data: findedRestaurants,
+      length: findedRestaurants.length,
+    });
   },
 };
 
