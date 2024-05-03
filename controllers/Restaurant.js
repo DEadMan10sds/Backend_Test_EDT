@@ -27,6 +27,31 @@ const RestaurantController = {
     }
   },
 
+  getSingle: async function (req, res) {
+    const { id } = req.params;
+    if (!id)
+      return res.status(400).json({
+        message: "The id of the restaurant is required",
+      });
+
+    try {
+      const findedRestaurant = await Restaurant.findByPk(id);
+
+      if (!findedRestaurant)
+        return res.status(404).json({
+          message: "There's no restaurant with this id",
+        });
+
+      return res.status(200).json({
+        message: "Restaurant finded",
+        data: findedRestaurant,
+      });
+    } catch (error) {
+      console.log(error, new Date());
+      return res.status(400).json({ error: error.error });
+    }
+  },
+
   createRestaurant: async function (req, res) {
     const restaurantData = req.body;
 
