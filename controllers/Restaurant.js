@@ -21,6 +21,10 @@ const RestaurantController = {
       return res.status(400).json({ error: error.error });
     }
   },
+  createRestaurant: async function (req, res) {},
+  updateRestaurant: async function (req, res) {},
+  deleteRestaurant: async function (req, res) {},
+  loadFromCSV: async function (req, res) {},
 };
 
 export default RestaurantController;
