@@ -123,12 +123,20 @@ const RestaurantController = {
   loadFromCSVtoDB: async function (req, res) {
     fs.createReadStream("./documents/restaurantes.csv")
       .pipe(csv())
-      .on("data", async (data) => {
-        const newRestaurantInstance = await Restaurant.create(data);
-        results.push(newRestaurantInstance);
+      .on("data", (data) => {
+        results.push(data);
       })
-      .on("end", () => {
-        return res.status(200).json({ results });
+      .on("end", async () => {
+        try {
+          await Restaurant.bulkCreate(results);
+
+          return res.status(200).json({
+            message: "CSV loaded on database",
+          });
+        } catch (error) {
+          console.log(error, new Date());
+          return res.status(400).json({ error: error.error });
+        }
       });
   },
 

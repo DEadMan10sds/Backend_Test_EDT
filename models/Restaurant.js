@@ -20,6 +20,7 @@ const Restaurant = sequelize.define(
     },
     name: {
       type: DataTypes.TEXT,
+      allowNull: false,
     },
     site: {
       type: DataTypes.TEXT,

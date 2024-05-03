@@ -8,7 +8,6 @@ const restaurantRoutes = [
   {
     type: "get",
     route: "/all",
-    middlewares: [],
     function: RestaurantController.getAll,
   },
   {
@@ -17,9 +16,23 @@ const restaurantRoutes = [
     function: RestaurantController.getSingle,
   },
   {
+    type: "post",
+    route: "/create",
+    function: RestaurantController.createRestaurant,
+  },
+  {
+    type: "put",
+    route: "/update/:id",
+    function: RestaurantController.updateRestaurant,
+  },
+  {
+    type: "delete",
+    route: "/delete",
+    function: RestaurantController.deleteRestaurant,
+  },
+  {
     type: "get",
     route: "/loadCSV",
-    middlewares: [],
     function: RestaurantController.loadFromCSVtoDB,
   },
 ];
