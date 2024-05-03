@@ -248,8 +248,18 @@
 			"type": "string"
 		},
 		{
-			"key": "restaurant",
+			"key": "local_restaurant",
 			"value": "http://localhost:3000/api/restaurant",
+			"type": "string"
+		},
+		{
+			"key": "online_restaurant",
+			"value": "https://backend-test-edt.onrender.com/api/restaurant",
+			"type": "string"
+		},
+		{
+			"key": "online",
+			"value": "https://backend-test-edt.onrender.com",
 			"type": "string"
 		}
 	]
