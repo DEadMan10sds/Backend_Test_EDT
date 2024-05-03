@@ -61,6 +61,11 @@ const generalRoutes = [
     middlewares: [],
     function: generalController.resetDatabase,
   },
+  {
+    type: "all",
+    route: "*",
+    function: generalController.redirect,
+  },
 ];
 
 class Server {

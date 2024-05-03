@@ -20,6 +20,9 @@ const generalController = {
       message: "Server running correctly",
     });
   },
+  redirect: function (req, res) {
+    return res.status(404).redirect("/");
+  },
 };
 
 export default generalController;
