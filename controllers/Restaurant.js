@@ -1,7 +1,7 @@
 import Restaurant from "../models/Restaurant.js";
 import fs from "fs";
 import csv from "csv-parser";
-import { where } from "sequelize";
+import errorResponse from "../helpers/errorResponse.js";
 
 const results = [];
 
@@ -22,8 +22,7 @@ const RestaurantController = {
         data: allRestaurants,
       });
     } catch (error) {
-      console.log(error, new Date());
-      return res.status(400).json({ error: error.error });
+      errorResponse(res, error);
     }
   },
 
@@ -47,8 +46,7 @@ const RestaurantController = {
         data: findedRestaurant,
       });
     } catch (error) {
-      console.log(error, new Date());
-      return res.status(400).json({ error: error.error });
+      errorResponse(res, error);
     }
   },
 
@@ -62,13 +60,12 @@ const RestaurantController = {
 
     try {
       const restaurantSaved = await Restaurant.create(restaurantData);
-      console.log(restaurantSaved);
       return res.status(200).json({
         message: "Restaurant created succesfully",
+        data: restaurantSaved,
       });
     } catch (error) {
-      console.log(error, new Date());
-      return res.status(400).json({ error: error.error });
+      errorResponse(res, error);
     }
   },
 
@@ -94,8 +91,7 @@ const RestaurantController = {
       console.log(restaurantUpdated);
       return res.status(200);
     } catch (error) {
-      console.log(error, new Date());
-      return res.status(400).json({ error: error.error });
+      errorResponse(res, error);
     }
   },
 
@@ -115,8 +111,7 @@ const RestaurantController = {
       console.log(restaurantDeleted);
       return res.status(200);
     } catch (error) {
-      console.log(error, new Date());
-      return res.status(400).json({ error: error.error });
+      errorResponse(res, error);
     }
   },
 
@@ -134,8 +129,7 @@ const RestaurantController = {
             message: "CSV loaded on database",
           });
         } catch (error) {
-          console.log(error, new Date());
-          return res.status(400).json({ error: error.error });
+          errorResponse(res, error);
         }
       });
   },

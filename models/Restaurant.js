@@ -48,7 +48,7 @@ const Restaurant = sequelize.define(
     },
   },
   {
-    // Other model options go here
+    // Other model options
     timestamps: true,
   }
 );
