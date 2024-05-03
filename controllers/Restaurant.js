@@ -191,8 +191,9 @@ const RestaurantController = {
     return res.status(200).json({
       message: "Statistics solicitated",
       data: findedRestaurants,
-      averageRating: avgRating,
-      standardDeviation: finalStd,
+      count: findedRestaurants.length,
+      avg: avgRating,
+      std: finalStd,
     });
   },
 };
