@@ -35,6 +35,11 @@ const restaurantRoutes = [
     route: "/loadCSV",
     function: RestaurantController.loadFromCSVtoDB,
   },
+  {
+    type: "delete",
+    route: "/dropTable",
+    function: RestaurantController.dropTable,
+  },
 ];
 
 const generalRoutes = [
