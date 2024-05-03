@@ -7,9 +7,9 @@ import generateRouter from "../helpers/generateRouter.js";
 const restaurantRoutes = [
   {
     type: "get",
-    route: "/",
+    route: "/all",
     middlewares: [],
-    function: () => {},
+    function: RestaurantController.getAll,
   },
 ];
 
